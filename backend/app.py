@@ -227,5 +227,20 @@ def db_view():
     })
 
 # ---------------- RUN ----------------
+# ---------------- FRONTEND ----------------
+import os
+
+@app.route('/')
+def serve_frontend():
+    return send_from_directory('frontend/dist', 'index.html')
+
+
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory('frontend/dist', path)
+
+
+# ---------------- RUN ----------------
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
