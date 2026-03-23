@@ -228,18 +228,26 @@ def db_view():
 
 # ---------------- RUN ----------------
 # ---------------- FRONTEND ----------------
+# ---------------- FRONTEND ----------------
 import os
+from flask import send_from_directory
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DIST_DIR = os.path.join(BASE_DIR, 'dist')
 
 @app.route('/')
 def serve_frontend():
-    return send_from_directory('frontend/dist', 'index.html')
-
+    return send_from_directory(DIST_DIR, 'index.html')
 
 @app.route('/<path:path>')
 def serve_static(path):
-    return send_from_directory('frontend/dist', path)
-
-
+    file_path = os.path.join(DIST_DIR, path)
+    
+    if os.path.exists(file_path):
+        return send_from_directory(DIST_DIR, path)
+    else:
+        # fallback for React routing
+        return send_from_directory(DIST_DIR, 'index.html')
 # ---------------- RUN ----------------
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))

@@ -3,7 +3,9 @@ import axios from 'axios';
 import { User, Lock, Users, LogIn, UserPlus, Target } from 'lucide-react';
 import './Login.css';
 
-const API_URL = 'https://c7754ed1fc01b6.lhr.life';
+const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://127.0.0.1:10000'
+  : '';
 
 function Login({ onLogin }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -15,7 +17,7 @@ function Login({ onLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    
+
     try {
       if (isLogin) {
         const res = await axios.post(`${API_URL}/login`, { username, password });
@@ -109,8 +111,8 @@ function Login({ onLogin }) {
         <div className="login-footer">
           <p>
             {isLogin ? "Don't have an account? " : "Already have an account? "}
-            <span 
-              className="toggle-link text-gradient-primary" 
+            <span
+              className="toggle-link text-gradient-primary"
               onClick={() => { setIsLogin(!isLogin); setError(''); }}
             >
               {isLogin ? 'Register now' : 'Login instead'}

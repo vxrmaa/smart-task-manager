@@ -13,7 +13,9 @@ import {
 } from 'lucide-react';
 import './Dashboard.css';
 
-const API_URL = 'https://c7754ed1fc01b6.lhr.life';
+const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://127.0.0.1:10000'
+  : '';
 
 function Dashboard({ user, onLogout }) {
   const [activeTab, setActiveTab] = useState('tasks');

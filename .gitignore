@@ -80,6 +80,8 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
+# Allow backend build to be tracked for easier deployment
+!backend/dist/
 dist
 
 # Gatsby files
