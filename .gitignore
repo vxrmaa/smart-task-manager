@@ -80,9 +80,9 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-# Allow backend build to be tracked for easier deployment
-!backend/dist/
-dist
+# Allow backend/dist to be tracked for Render deployment
+# Note: 'dist' rule must come BEFORE the exception, or git ignores the exception
+frontend/dist
 
 # Gatsby files
 .cache/
