@@ -194,10 +194,26 @@ h1, h2, h3, h4 {
   border: 1px solid rgba(99, 102, 241, 0.3);
 }
 
+/* alias used by task status cycling */
+.badge-in-progress {
+  background: rgba(99, 102, 241, 0.2);
+  color: var(--primary);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
 .badge-completed {
   background: rgba(16, 185, 129, 0.2);
   color: var(--success);
   border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* Utility classes used throughout components */
+.text-muted {
+  color: var(--text-muted);
+}
+
+.select-field {
+  cursor: pointer;
 }
 
 /* Scrollbar */
