@@ -5,13 +5,18 @@ from flask import Flask, request, jsonify
 import sqlite3
 from flask_cors import CORS
 import hashlib
+import os
 
 app = Flask(__name__)
 CORS(app)
 
+# Absolute path to DB so it works from any working directory (important on Render)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.join(BASE_DIR, "database.db")
+
 # ---------------- DATABASE ----------------
 def get_db():
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -226,10 +231,12 @@ def db_view():
         "tasks": [dict(t) for t in tasks]
     })
 
-# ---------------- RUN ----------------
+# ---------------- HEALTH CHECK ----------------
+@app.route('/health', methods=['GET'])
+def health():
+    return jsonify({"status": "ok", "db": DB_PATH}), 200
+
 # ---------------- FRONTEND ----------------
-# ---------------- FRONTEND ----------------
-import os
 from flask import send_from_directory
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))

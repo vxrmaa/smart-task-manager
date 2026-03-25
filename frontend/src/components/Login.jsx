@@ -29,7 +29,15 @@ function Login({ onLogin }) {
         onLogin(res.data.user);
       }
     } catch (err) {
-      setError(err.response?.data?.error || 'An error occurred during authentication');
+      if (err.response) {
+        // Server responded with an error status
+        setError(err.response.data?.error || `Server error ${err.response.status}: ${err.response.statusText}`);
+      } else if (err.request) {
+        // Request was made but no response received (network issue)
+        setError('Cannot reach the server. Please check your connection.');
+      } else {
+        setError('An unexpected error occurred. Please try again.');
+      }
     }
   };
 
