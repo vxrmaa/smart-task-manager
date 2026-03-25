@@ -239,7 +239,6 @@ def health():
 # ---------------- FRONTEND ----------------
 from flask import send_from_directory
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DIST_DIR = os.path.join(BASE_DIR, 'dist')
 
 @app.route('/')
